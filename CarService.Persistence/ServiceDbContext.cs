@@ -1,13 +1,11 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using CarService.App.Cars.Models;
 using CarService.App.Cars.Queries;
 using CarService.App.Infrastructure;
 using CarService.Domain;
 using Dapper;
-using NodaTime;
 
-namespace CarService.Persistence;
+namespace CarService.Persistance;
 
 public class ServiceDbContext : IServiceDbContext
 {
@@ -70,6 +68,11 @@ public class ServiceDbContext : IServiceDbContext
         await conn.CloseAsync();
     }
 
+    public Task<Car> GetById(string id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task DeleteCar(string id)
     {
         await using var conn = new SqlConnection(_connString);
@@ -78,7 +81,7 @@ public class ServiceDbContext : IServiceDbContext
         var parameters = new DynamicParameters();
         parameters.Add("id", id, DbType.String);
 
-        var data = await conn.QueryFirstAsync<Car>(_getSql, parameters);
-        return data;
+        await conn.ExecuteAsync(_getSql, parameters);
+
     }
 }

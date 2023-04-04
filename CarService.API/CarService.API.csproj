@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CarService.App\CarService.App.csproj" />
+      <ProjectReference Include="..\CarService.Persistence\CarService.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

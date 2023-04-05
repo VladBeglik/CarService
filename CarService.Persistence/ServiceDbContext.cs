@@ -73,6 +73,22 @@ public class ServiceDbContext : IServiceDbContext
         throw new NotImplementedException();
     }
 
+    public async Task Init()
+    {
+        await InitDataBase();
+        await InitTables();
+    }
+
+    private async Task InitDataBase()
+    {
+        throw new NotImplementedException();
+    }
+
+    private async Task InitTables()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task DeleteCar(string id)
     {
         await using var conn = new SqlConnection(_connString);

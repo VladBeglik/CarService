@@ -15,4 +15,6 @@ public interface IServiceDbContext
     Task UpdateCar(Car car);
 
     Task<Car> GetById(string id);
+
+    Task Init();
 }

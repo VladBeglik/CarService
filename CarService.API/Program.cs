@@ -1,24 +1,33 @@
 using System.Reflection;
 using CarService.App.Infrastructure;
 using CarService.Persistance;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
+var assembly = typeof(Program).Assembly;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IServiceDbContext, ServiceDbContext>();
+builder.Services.AddMediatR(assembly);
+
+    builder.Services
+    .AddSingleton<IServiceDbContext, ServiceDbContext>(o => new ServiceDbContext(builder.Configuration.GetConnectionString("Context")!));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// {
+//     using var scope = app.Services.CreateScope();
+//     var context = scope.ServiceProvider.GetRequiredService<IServiceDbContext>();
+//     await context.Init();
+// }
 
 app.UseHttpsRedirection();
 

@@ -29,7 +29,7 @@ public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand>
 
         if (car == null)
         {
-            throw new Exception();
+            throw new CustomException(ExceptionMessage.Car.NotFound());
         }
         
         await _ctx.UpdateCar(car);

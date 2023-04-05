@@ -32,7 +32,7 @@ public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand>
 
         if (car == null)
         {
-            throw new Exception();
+            throw new CustomException(ExceptionMessage.Car.NotFound());
         }
 
         await _ctx.AddCar(car);
